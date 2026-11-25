@@ -1,0 +1,18 @@
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      MODULE: monitoring
+      DB_PATH: /data/monitoring.db
+    ports:
+      - "127.0.0.1:8205:8000"
+    volumes:
+      - app_data:/data
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs: [/tmp]
+volumes:
+  app_data:
